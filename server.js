@@ -3,6 +3,9 @@ const axios = require("axios");
 
 var app = express()
 
+// Configura la directory "public" come root per i file statici
+app.use(express.static('public'));
+
 // Set the view engine to EJS
 app.set("view engine", "ejs");
 app.get("/", (request, response) => {
@@ -15,7 +18,7 @@ app.get("/weather", async (request, response) => {
     const city = request.query.city;
     const apiKey = "5a5ac64918dba8310b2d5af5b19ea911";
 
-    const APIUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+    const APIUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
     let weather;
     let error = null;
     try {
@@ -28,6 +31,11 @@ app.get("/weather", async (request, response) => {
     // Render the index template with the weather data and error message
     response.render("index", { weather, error });
 });
+
+app.get("/reset", async (request, response) => {
+    response.render("index", { weather: null, error: null });
+})
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Started application on port ${port}`);

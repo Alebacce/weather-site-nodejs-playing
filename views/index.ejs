@@ -7,6 +7,7 @@
     <title>Weather App w/ Node.js</title>
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" />
+    <script src="script.js"></script> <!-- Importa il file JavaScript -->
 </head>
 
 <body>
@@ -16,6 +17,7 @@
             <input type="text" name="city" placeholder="Enter city name" />
             <button type="submit">Get Weather</button>
         </form>
+        <button type="reset" onclick="fetch('/reset')">Clear data</button>
         <% if (error) { %>
             <p class="error">
                 <% error %>
